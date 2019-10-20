@@ -1,55 +1,41 @@
 <template>
   <div>
-    <nuxt />
+    <section class="el-container">
+      <section class="el-container is-vertical">
+        <header class="el-header header">
+          <div>
+            <p>Todo Sample</p>
+          </div>
+        </header>
+        <section class="el-container">
+          <aside class="el-aside side-nav">
+            <ul role="menu" class="el-menu">
+              <li
+                role="menuitem"
+                :class="'el-menu-item ' + activeClass('/tasks')"
+              >
+                <router-link to="/tasks">
+                  <i class="el-icon-edit" />
+                  タスク一覧
+                </router-link>
+              </li>
+            </ul>
+          </aside>
+          <main class="el-main">
+            <nuxt />
+          </main>
+        </section>
+      </section>
+    </section>
   </div>
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+<script>
+export default {
+  methods: {
+    activeClass(path) {
+      return this.$route.path.match(path) ? 'active' : ''
+    }
+  }
 }
-
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
-</style>
+</script>

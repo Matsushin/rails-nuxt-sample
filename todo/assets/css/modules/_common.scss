@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+}
+
+h2 {
+  font-weight: 400;
+  color: #1f2f3d;
+  font-size: 28px;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #409eff;
+}
+
+a:hover, a:visited {
+  color: #409eff;
+}
+
+.tip {
+  padding: 8px 16px;
+  background-color: #ecf8ff;
+  border-radius: 4px;
+  border-left: 5px solid #50bfff;
+  margin: 20px 0;
+
+  p {
+    font-size: 14px;
+    color: #5e6d82;
+    line-height: 1.5em;
+  }
+}
+
+.side-nav {
+  color: #333;
+  border-right: solid 1px #e6e6e6;
+  height: 100%;
+
+  a {
+    color: #333;
+  }
+
+  a:visited {
+    color: #444;
+  }
+
+  .active {
+    a, i {
+      color: #409eff !important;
+    }
+  }
+
+  ul.el-menu {
+    border: none;
+  }
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}

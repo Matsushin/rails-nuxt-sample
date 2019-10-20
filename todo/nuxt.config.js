@@ -27,7 +27,8 @@ export default {
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    '@/assets/css/application.scss',
+    'element-ui/lib/theme-chalk/index.css',
   ],
 
   /*
@@ -41,7 +42,10 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/toast',
+    '@nuxtjs/axios',
+    ['@nuxtjs/moment', ['ja']],
   ],
 
   /*
