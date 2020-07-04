@@ -35,18 +35,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Errors from '@/components/shared/Errors'
 
 export default {
   components: {
     Errors
-  },
-  computed: {
-    ...mapGetters({
-      currentUser: 'auth/currentUser',
-      survey: 'tasks/task'
-    })
   },
   asyncData() {
     return {
@@ -57,17 +50,17 @@ export default {
   methods: {
     async handleSubmit() {
       const params = {
-        task: {
-          title: this.formData.title || '',
-          body: this.formData.body || ''
-        }
+        title: this.formData.title || '',
+        body: this.formData.body || ''
       }
       await this.createtask(params)
     },
     async createtask(params) {
-      const endpoint = '/api/v1/tasks'
-      const res = await this.$axios.$post(endpoint, params)
-
+      const res = await this.$store
+        .dispatch('tasks/createTask', params)
+        .catch(() => {
+          return { errors: ['エラーが発生しました。'] }
+        })
       if (res.errors) {
         this.errors = res.errors
       } else {

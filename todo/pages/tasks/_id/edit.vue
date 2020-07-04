@@ -60,16 +60,17 @@ export default {
   methods: {
     async handleSubmit() {
       const params = {
-        task: {
-          title: this.formData.title || '',
-          body: this.formData.body || ''
-        }
+        title: this.formData.title || '',
+        body: this.formData.body || ''
       }
       await this.updateTask(this.task, params)
     },
     async updateTask(task, params) {
-      const endpoint = `/api/v1/tasks/${task.id}`
-      const res = await this.$axios.$patch(endpoint, params)
+      const res = await this.$store
+        .dispatch('tasks/updateTask', { taskId: task.id, params: params })
+        .catch(() => {
+          return { errors: ['エラーが発生しました。'] }
+        })
 
       if (res.errors) {
         this.errors = res.errors

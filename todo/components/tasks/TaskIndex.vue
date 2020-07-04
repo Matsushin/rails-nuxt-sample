@@ -1,5 +1,6 @@
 <template>
   <div class="task-table">
+    <Errors :errors="errors" />
     <v-data-table
       :headers="headers"
       :items="tasks"
@@ -36,10 +37,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import Errors from '@/components/shared/Errors'
+
 export default {
+  components: {
+    Errors
+  },
   data() {
     return {
-      tasks: [],
+      errors: [],
       headers: [
         {
           text: 'タイトル',
@@ -51,6 +58,11 @@ export default {
         { text: '操作', sortable: false, value: 'actions' }
       ]
     }
+  },
+  computed: {
+    ...mapGetters({
+      tasks: 'tasks/tasks',
+    })
   },
   created() {
     this.fetchTasks()
@@ -81,19 +93,16 @@ export default {
         this.deleteTask(id)
       }
     },
-    editItem(item) {
-      console.log(item.title)
-      this.edit(item.id)
-    },
-    deleteItem(item) {
-      console.log(item.title)
-    },
     async fetchTasks() {
-      this.tasks = await this.$axios.$get('/api/v1/tasks')
+      await this.$store.dispatch('tasks/fetchTasks')
     },
     async deleteTask(id) {
-      const endpoint = '/api/v1/tasks/' + id
-      const res = await this.$axios.$delete(endpoint)
+      const res = await this.$store
+        .dispatch('tasks/deleteTask', id)
+        .catch(() => {
+          return { errors: ['エラーが発生しました。'] }
+        })
+
       if (res.errors) {
         this.errors = res.errors
       } else {
