@@ -13,10 +13,10 @@
 ## 環境
 ### Version
 - Ruby v2.6.3
-- Rails v5.2.3
+- Rails v6.0.3.2
 - MySQL 5.7.22
-- Nuxt.js v2.4.0
-- Element v2.4.11
+- Nuxt.js v2.13.3
+- Vuetify v2.3.3
 
 ### アプリ初期設定
 ```
