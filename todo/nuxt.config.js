@@ -1,4 +1,5 @@
 import pkg from './package'
+import colors from 'vuetify/es5/util/colors'
 
 export default {
   mode: 'universal',
@@ -36,7 +37,16 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    'plugins/vuetify'
+  ],
+  /*
+  ** Nuxt.js dev-modules
+  */
+  buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/vuetify'
   ],
 
   /*
@@ -48,7 +58,26 @@ export default {
     '@nuxtjs/axios',
     ['@nuxtjs/moment', ['ja']],
   ],
-
+  /*
+  ** vuetify module configuration
+  ** https://github.com/nuxt-community/vuetify-module
+  */
+  vuetify: {
+    theme: {
+      dark: false,
+      themes: {
+        dark: {
+          primary: colors.blue.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        }
+      }
+    }
+  },
   /*
   ** Build configuration
   */

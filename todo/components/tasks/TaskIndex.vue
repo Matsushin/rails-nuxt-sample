@@ -1,5 +1,18 @@
 <template>
   <div class="task-table">
+    <v-layout column justify-center align-center>
+      <v-flex xs12 sm8 md6>
+        <v-card>
+          <v-row justify="space-around">
+            <v-col>
+              <v-icon>mdi-domain</v-icon> //デフォルトのMaterial Design Icons
+              <v-icon>home</v-icon> // Material Icons
+              <v-icon>fas fa-lock</v-icon> //Font Awesome 5
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-flex>
+    </v-layout>
     <el-table
       :data="tasks"
       :row-class-name="tableRowClassName"
