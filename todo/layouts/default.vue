@@ -1,14 +1,31 @@
 <template>
   <v-app>
-    <v-card
-      color="grey lighten-4"
-      flat
-      tile>
-      <v-toolbar :dark="true" dense color="primary">
-        <v-toolbar-title v-text="title" />
-        <v-spacer />
-      </v-toolbar>
-    </v-card>
+    <header>
+      <v-app-bar
+        color="primary"
+        app
+        dark>
+        <v-app-bar-nav-icon @click="drawer = true" />
+        <v-toolbar-title>{{ title }}</v-toolbar-title>
+      </v-app-bar>
+      <v-navigation-drawer
+        v-model="drawer"
+        fixed
+        temporary>
+        <v-list
+          nav
+          dense>
+          <v-list-item-group>
+            <v-list-item to="/">
+              <v-list-item-title>ホーム</v-list-item-title>
+            </v-list-item>
+            <v-list-item to="/tasks">
+              <v-list-item-title>タスク</v-list-item-title>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+    </header>
     <v-main>
       <v-container>
         <v-row>
@@ -30,7 +47,8 @@
 export default {
   data() {
     return {
-      title: 'Todo Sample'
+      title: 'Todo Sample',
+      drawer: false
     }
   }
 }
