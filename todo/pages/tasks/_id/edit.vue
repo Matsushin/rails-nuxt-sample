@@ -1,43 +1,34 @@
 <template>
   <div class="edit-task-container">
-    <Errors :errors="errors" />
     <h2>タスク編集</h2>
-    <el-link type="primary" href="/tasks">
+    <a type="primary" nuxt href="/tasks">
       タスク一覧へ戻る
-    </el-link>
-    <form @submit.prevent="handleSubmit" class="el-form">
+    </a>
+    <Errors :errors="errors" />
+    <v-form ref="form">
       <div class="box-wrapper">
         <div class="box">
           <div class="panel panel-input-list">
-            <label class="el-form-item__label">タイトル</label>
-            <el-input
+            <v-text-field
               v-model="formData.title"
-              type="text"
-              required
-              class="task-title"
+              :counter="20"
+              label="タイトル"
               placeholder="ここにタスクのタイトルが入ります"
-            />
-            <label class="el-form-item__label">本文</label>
-            <el-input
+              required />
+            <v-textarea
               v-model="formData.body"
-              type="textarea"
-              required
-              class="task-body"
-              placeholder="ここにタスク内容が入ります"
-            />
+              label="本文"
+              placeholder="ここにタスク内容が入ります" />
           </div>
         </div>
       </div>
 
       <div class="mt-8">
-        <el-button
-          type="primary"
-          native-type="submit"
-        >
+        <v-btn @click="handleSubmit" color="primary">
           この内容で登録する
-        </el-button>
+        </v-btn>
       </div>
-    </form>
+    </v-form>
   </div>
 </template>
 
@@ -70,8 +61,8 @@ export default {
     async handleSubmit() {
       const params = {
         task: {
-          title: this.formData.title,
-          body: this.formData.body
+          title: this.formData.title || '',
+          body: this.formData.body || ''
         }
       }
       await this.updateTask(this.task, params)

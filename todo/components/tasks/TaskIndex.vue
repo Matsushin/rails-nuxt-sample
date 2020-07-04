@@ -1,59 +1,37 @@
 <template>
   <div class="task-table">
-    <v-layout column justify-center align-center>
-      <v-flex xs12 sm8 md6>
-        <v-card>
-          <v-row justify="space-around">
-            <v-col>
-              <v-icon>mdi-domain</v-icon> //デフォルトのMaterial Design Icons
-              <v-icon>home</v-icon> // Material Icons
-              <v-icon>fas fa-lock</v-icon> //Font Awesome 5
-            </v-col>
-          </v-row>
-        </v-card>
-      </v-flex>
-    </v-layout>
-    <el-table
-      :data="tasks"
-      :row-class-name="tableRowClassName"
-      stripe
-      style="width: 100%"
-    >
-      <el-table-column
-        prop="title"
-        label="タスク名"
-        width="180"
-      />
-      <el-table-column
-        prop="body"
-        label="タスク内容"
-        width="400"
-      />
-      <el-table-column
-        label="作成日時"
-        width="240"
-      >
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ formattedDate(scope.row.created_at) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column>
-        <template slot-scope="scope">
-          <el-button
-            @click="edit(scope.row.id)"
-            type="text"
-          >
-            編集
-          </el-button>
-          <el-button
-            @click="handleDeleteTask(scope.row.id)"
-            type="text"
-          >
-            削除
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <v-data-table
+      :headers="headers"
+      :items="tasks"
+      item-key="id"
+      loading-text="読込中"
+      no-data-text="データがありません。">
+      <template v-slot:item.created_at="{ item }">
+        {{ formattedDate(item.created_at) }}
+      </template>
+      <template v-slot:item.actions="{ item }">
+        <v-btn
+          @click="edit(item.id)"
+          class="ma-2"
+          color="primary"
+          dark>
+          編集
+          <v-icon dark right>
+            mdi-pencil
+          </v-icon>
+        </v-btn>
+        <v-btn
+          @click="handleDeleteTask(item.id)"
+          class="ma-2"
+          color="red"
+          dark>
+          削除
+          <v-icon dark right>
+            mdi-delete
+          </v-icon>
+        </v-btn>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
@@ -61,7 +39,17 @@
 export default {
   data() {
     return {
-      tasks: []
+      tasks: [],
+      headers: [
+        {
+          text: 'タイトル',
+          align: 'start',
+          value: 'title'
+        },
+        { text: '内容', value: 'body' },
+        { text: '作成日時', value: 'created_at' },
+        { text: '操作', sortable: false, value: 'actions' }
+      ]
     }
   },
   created() {
@@ -92,6 +80,13 @@ export default {
       if (confirm('タスクを削除しますか？')) {
         this.deleteTask(id)
       }
+    },
+    editItem(item) {
+      console.log(item.title)
+      this.edit(item.id)
+    },
+    deleteItem(item) {
+      console.log(item.title)
     },
     async fetchTasks() {
       this.tasks = await this.$axios.$get('/api/v1/tasks')

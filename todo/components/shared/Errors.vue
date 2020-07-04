@@ -1,12 +1,8 @@
 <template>
-  <div v-if="errors.length" class="mt-15">
-    <el-alert
-      :closable="false"
-      :description="errors.join('。')"
-      title="エラー"
-      type="error"
-      show-icon
-    />
+  <div v-if="errors.length" class="mt-3 mb-2">
+    <v-alert type="error">
+      {{ errors.join('。') }}
+    </v-alert>
   </div>
 </template>
 

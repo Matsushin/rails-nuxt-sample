@@ -29,15 +29,13 @@ export default {
   ** Global CSS
   */
   css: [
-    '@/assets/css/application.scss',
-    'element-ui/lib/theme-chalk/index.css',
+    '@/assets/css/application.scss'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui',
     'plugins/vuetify'
   ],
   /*
@@ -59,31 +57,9 @@ export default {
     ['@nuxtjs/moment', ['ja']],
   ],
   /*
-  ** vuetify module configuration
-  ** https://github.com/nuxt-community/vuetify-module
-  */
-  vuetify: {
-    theme: {
-      dark: false,
-      themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
-        }
-      }
-    }
-  },
-  /*
   ** Build configuration
   */
   build: {
-    transpile: [/^element-ui/],
-
     /*
     ** You can extend webpack config here
     */

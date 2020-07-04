@@ -1,40 +1,36 @@
 <template>
-  <div>
-    <section class="el-container">
-      <section class="el-container is-vertical">
-        <header class="el-header header">
-          <div>
-            <p>Todo Sample</p>
-          </div>
-        </header>
-        <section class="el-container">
-          <aside class="el-aside side-nav">
-            <ul role="menu" class="el-menu">
-              <li
-                :class="'el-menu-item ' + activeClass('/tasks')"
-                role="menuitem"
-              >
-                <router-link to="/tasks">
-                  <i class="el-icon-edit" />
-                  タスク一覧
-                </router-link>
-              </li>
-            </ul>
-          </aside>
-          <main class="el-main">
+  <v-app>
+    <v-card
+      color="grey lighten-4"
+      flat
+      tile>
+      <v-toolbar :dark="true" dense color="primary">
+        <v-toolbar-title v-text="title" />
+        <v-spacer />
+      </v-toolbar>
+    </v-card>
+    <v-main>
+      <v-container>
+        <v-row>
+          <v-col cols="10" offset="1">
             <nuxt />
-          </main>
-        </section>
-      </section>
-    </section>
-  </div>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+    <v-footer center>
+      <v-layout justify-center>
+        <span>&copy; Matsushin. All Rights Reserved.</span>
+      </v-layout>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
 export default {
-  methods: {
-    activeClass(path) {
-      return this.$route.path.match(path) ? 'active' : ''
+  data() {
+    return {
+      title: 'Todo Sample'
     }
   }
 }
