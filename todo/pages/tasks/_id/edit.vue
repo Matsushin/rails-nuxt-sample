@@ -5,7 +5,7 @@
     <el-link type="primary" href="/tasks">
       タスク一覧へ戻る
     </el-link>
-    <form class="el-form" @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit" class="el-form">
       <div class="box-wrapper">
         <div class="box">
           <div class="panel panel-input-list">

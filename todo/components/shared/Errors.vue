@@ -1,10 +1,10 @@
 <template>
   <div v-if="errors.length" class="mt-15">
     <el-alert
-      title="エラー"
-      type="error"
       :closable="false"
       :description="errors.join('。')"
+      title="エラー"
+      type="error"
       show-icon
     />
   </div>

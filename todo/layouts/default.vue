@@ -11,8 +11,8 @@
           <aside class="el-aside side-nav">
             <ul role="menu" class="el-menu">
               <li
-                role="menuitem"
                 :class="'el-menu-item ' + activeClass('/tasks')"
+                role="menuitem"
               >
                 <router-link to="/tasks">
                   <i class="el-icon-edit" />

@@ -2,9 +2,9 @@
   <div class="task-table">
     <el-table
       :data="tasks"
+      :row-class-name="tableRowClassName"
       stripe
       style="width: 100%"
-      :row-class-name="tableRowClassName"
     >
       <el-table-column
         prop="title"
@@ -27,14 +27,14 @@
       <el-table-column>
         <template slot-scope="scope">
           <el-button
-            type="text"
             @click="edit(scope.row.id)"
+            type="text"
           >
             編集
           </el-button>
           <el-button
-            type="text"
             @click="handleDeleteTask(scope.row.id)"
+            type="text"
           >
             削除
           </el-button>
