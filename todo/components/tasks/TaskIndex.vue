@@ -12,6 +12,14 @@
       </template>
       <template v-slot:item.actions="{ item }">
         <v-btn
+          :to="`/tasks/${item.id}`"
+          class="ma-2"
+          color="success"
+          nuxt
+          dark>
+          詳細
+        </v-btn>
+        <v-btn
           @click="edit(item.id)"
           class="ma-2"
           color="primary"

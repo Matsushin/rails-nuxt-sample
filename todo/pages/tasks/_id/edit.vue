@@ -1,6 +1,8 @@
 <template>
   <div class="edit-task-container">
-    <h2>タスク編集</h2>
+    <h2 class="mb-3">
+      タスク編集
+    </h2>
     <a type="primary" nuxt href="/tasks">
       タスク一覧へ戻る
     </a>
@@ -51,7 +53,7 @@ export default {
       task: 'tasks/task'
     })
   },
-  async fetch({ store, params, redirect }) {
+  async fetch({ store, params }) {
     await store.dispatch('tasks/fetchTask', params.id)
   },
   created() {
