@@ -1,40 +1,54 @@
 <template>
-  <div>
-    <section class="el-container">
-      <section class="el-container is-vertical">
-        <header class="el-header header">
-          <div>
-            <p>Todo Sample</p>
-          </div>
-        </header>
-        <section class="el-container">
-          <aside class="el-aside side-nav">
-            <ul role="menu" class="el-menu">
-              <li
-                role="menuitem"
-                :class="'el-menu-item ' + activeClass('/tasks')"
-              >
-                <router-link to="/tasks">
-                  <i class="el-icon-edit" />
-                  タスク一覧
-                </router-link>
-              </li>
-            </ul>
-          </aside>
-          <main class="el-main">
+  <v-app>
+    <header>
+      <v-app-bar
+        color="primary"
+        app
+        dark>
+        <v-app-bar-nav-icon @click="drawer = true" />
+        <v-toolbar-title>{{ title }}</v-toolbar-title>
+      </v-app-bar>
+      <v-navigation-drawer
+        v-model="drawer"
+        fixed
+        temporary>
+        <v-list
+          nav
+          dense>
+          <v-list-item-group>
+            <v-list-item to="/">
+              <v-list-item-title>ホーム</v-list-item-title>
+            </v-list-item>
+            <v-list-item to="/tasks">
+              <v-list-item-title>タスク</v-list-item-title>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+    </header>
+    <v-main>
+      <v-container>
+        <v-row>
+          <v-col cols="10" offset="1">
             <nuxt />
-          </main>
-        </section>
-      </section>
-    </section>
-  </div>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+    <v-footer center>
+      <v-layout justify-center>
+        <span>&copy; Matsushin. All Rights Reserved.</span>
+      </v-layout>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
 export default {
-  methods: {
-    activeClass(path) {
-      return this.$route.path.match(path) ? 'active' : ''
+  data() {
+    return {
+      title: 'Todo Sample',
+      drawer: false
     }
   }
 }

@@ -32,30 +32,6 @@ a:hover, a:visited {
   }
 }
 
-.side-nav {
-  color: #333;
-  border-right: solid 1px #e6e6e6;
-  height: 100%;
-
-  a {
-    color: #333;
-  }
-
-  a:visited {
-    color: #444;
-  }
-
-  .active {
-    a, i {
-      color: #409eff !important;
-    }
-  }
-
-  ul.el-menu {
-    border: none;
-  }
-}
-
 .mt-8 {
   margin-top: 8px;
 }

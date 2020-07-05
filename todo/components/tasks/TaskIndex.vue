@@ -1,72 +1,103 @@
 <template>
   <div class="task-table">
-    <el-table
-      :data="tasks"
-      stripe
-      style="width: 100%"
-      :row-class-name="tableRowClassName"
-    >
-      <el-table-column
-        prop="title"
-        label="タスク名"
-        width="180"
-      />
-      <el-table-column
-        prop="body"
-        label="タスク内容"
-        width="400"
-      />
-      <el-table-column
-        label="作成日時"
-        width="240"
-      >
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ formattedDate(scope.row.created_at) }}</span>
+    <Errors :errors="errors" />
+    <div v-if="loading">
+      <v-row
+        class="mt-10"
+        align="center"
+        justify="center">
+        <v-progress-circular
+          indeterminate
+          color="primary" />
+      </v-row>
+    </div>
+    <div v-else>
+      <v-data-table
+        :headers="headers"
+        :items="tasks"
+        item-key="id"
+        loading-text="読込中"
+        no-data-text="データがありません。">
+        <template v-slot:item.body="{ item }">
+          {{ item.body | truncate(20, '...') }}
         </template>
-      </el-table-column>
-      <el-table-column>
-        <template slot-scope="scope">
-          <el-button
-            type="text"
-            @click="edit(scope.row.id)"
-          >
+        <template v-slot:item.created_at="{ item }">
+          {{ ymdhms(item.created_at) }}
+        </template>
+        <template v-slot:item.actions="{ item }">
+          <v-btn
+            :to="`/tasks/${item.id}`"
+            class="ma-2"
+            color="success"
+            nuxt
+            dark>
+            詳細
+          </v-btn>
+          <v-btn
+            @click="edit(item.id)"
+            class="ma-2"
+            color="primary"
+            dark>
             編集
-          </el-button>
-          <el-button
-            type="text"
-            @click="handleDeleteTask(scope.row.id)"
-          >
+            <v-icon dark right>
+              mdi-pencil
+            </v-icon>
+          </v-btn>
+          <v-btn
+            @click="handleDeleteTask(item.id)"
+            class="ma-2"
+            color="red"
+            dark>
             削除
-          </el-button>
+            <v-icon dark right>
+              mdi-delete
+            </v-icon>
+          </v-btn>
         </template>
-      </el-table-column>
-    </el-table>
+      </v-data-table>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import Errors from '@/components/shared/Errors'
+
 export default {
+  components: {
+    Errors
+  },
+  filters: {
+    truncate(value, length, omission) {
+      if (value.length <= length) return value
+      return value.substring(0, length) + omission
+    }
+  },
   data() {
     return {
-      tasks: []
+      errors: [],
+      loading: true,
+      headers: [
+        {
+          text: 'タイトル',
+          align: 'start',
+          value: 'title'
+        },
+        { text: '内容', value: 'body' },
+        { text: '作成日時', value: 'created_at' },
+        { text: '操作', sortable: false, value: 'actions' }
+      ]
     }
+  },
+  computed: {
+    ...mapGetters({
+      tasks: 'tasks/tasks',
+    })
   },
   created() {
     this.fetchTasks()
   },
   methods: {
-    tableRowClassName({ row, _rowIndex }) {
-      if (row.completed_at) {
-        return 'success-row'
-      }
-      return ''
-    },
-    formattedDate(str) {
-      if (!str) {
-        return
-      }
-      return this.$moment(str).format('YYYY年MM月DD日HH:mm:ss')
-    },
     edit(id) {
       this.$router.push({
         name: 'tasks-id-edit',
@@ -81,11 +112,16 @@ export default {
       }
     },
     async fetchTasks() {
-      this.tasks = await this.$axios.$get('/api/v1/tasks')
+      await this.$store.dispatch('tasks/fetchTasks')
+      this.loading = false
     },
     async deleteTask(id) {
-      const endpoint = '/api/v1/tasks/' + id
-      const res = await this.$axios.$delete(endpoint)
+      const res = await this.$store
+        .dispatch('tasks/deleteTask', id)
+        .catch(() => {
+          return { errors: ['エラーが発生しました。'] }
+        })
+
       if (res.errors) {
         this.errors = res.errors
       } else {

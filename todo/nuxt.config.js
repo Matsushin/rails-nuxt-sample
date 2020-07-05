@@ -1,7 +1,9 @@
 import pkg from './package'
+import colors from 'vuetify/es5/util/colors'
 
 export default {
   mode: 'universal',
+  telemetry: false,
 
   /*
   ** Headers of the page
@@ -27,15 +29,23 @@ export default {
   ** Global CSS
   */
   css: [
-    '@/assets/css/application.scss',
-    'element-ui/lib/theme-chalk/index.css',
+    '@/assets/css/application.scss'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '~/plugins/application',
+    '~/plugins/vuetify'
+  ],
+  /*
+  ** Nuxt.js dev-modules
+  */
+  buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/vuetify'
   ],
 
   /*
@@ -47,13 +57,10 @@ export default {
     '@nuxtjs/axios',
     ['@nuxtjs/moment', ['ja']],
   ],
-
   /*
   ** Build configuration
   */
   build: {
-    transpile: [/^element-ui/],
-
     /*
     ** You can extend webpack config here
     */

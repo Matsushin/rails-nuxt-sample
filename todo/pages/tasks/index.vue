@@ -1,9 +1,18 @@
 <template>
   <div>
-    <h2>タスク一覧</h2>
-    <el-link type="primary" href="/tasks/new">
+    <h2 class="mb-3">
+      タスク一覧
+    </h2>
+    <v-btn
+      to="/tasks/new"
+      color="primary"
+      nuxt
+      dark>
       タスク新規登録
-    </el-link>
+      <v-icon dark right>
+        mdi-plus
+      </v-icon>
+    </v-btn>
     <div>
       <TaskIndex />
     </div>

@@ -1,53 +1,28 @@
 <template>
   <div class="edit-task-container">
-    <Errors :errors="errors" />
-    <h2>タスク編集</h2>
-    <el-link type="primary" href="/tasks">
+    <h2 class="mb-3">
+      タスク編集
+    </h2>
+    <a type="primary" nuxt href="/tasks">
       タスク一覧へ戻る
-    </el-link>
-    <form class="el-form" @submit.prevent="handleSubmit">
-      <div class="box-wrapper">
-        <div class="box">
-          <div class="panel panel-input-list">
-            <label class="el-form-item__label">タイトル</label>
-            <el-input
-              v-model="formData.title"
-              type="text"
-              required
-              class="task-title"
-              placeholder="ここにタスクのタイトルが入ります"
-            />
-            <label class="el-form-item__label">本文</label>
-            <el-input
-              v-model="formData.body"
-              type="textarea"
-              required
-              class="task-body"
-              placeholder="ここにタスク内容が入ります"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-8">
-        <el-button
-          type="primary"
-          native-type="submit"
-        >
-          この内容で登録する
-        </el-button>
-      </div>
-    </form>
+    </a>
+    <Errors :errors="errors" />
+    <TaskForm
+      @onSubmit="handleSubmit"
+      v-model="formData"
+      btn-label="この内容で編集する" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Errors from '@/components/shared/Errors'
+import TaskForm from '~/components/tasks/TaskForm'
 
 export default {
   components: {
-    Errors
+    Errors,
+    TaskForm
   },
   data() {
     return {
@@ -60,25 +35,24 @@ export default {
       task: 'tasks/task'
     })
   },
-  async fetch({ store, params, redirect }) {
-    await store.dispatch('tasks/fetchTask', params.id)
-  },
-  created() {
-    this.formData = { ...this.task }
+  async created() {
+    await this.$store.dispatch('tasks/fetchTask', this.$route.params.id)
+    this.formData = this.task
   },
   methods: {
     async handleSubmit() {
       const params = {
-        task: {
-          title: this.formData.title,
-          body: this.formData.body
-        }
+        title: this.formData.title || '',
+        body: this.formData.body || ''
       }
       await this.updateTask(this.task, params)
     },
     async updateTask(task, params) {
-      const endpoint = `/api/v1/tasks/${task.id}`
-      const res = await this.$axios.$patch(endpoint, params)
+      const res = await this.$store
+        .dispatch('tasks/updateTask', { taskId: task.id, params: params })
+        .catch(() => {
+          return { errors: ['エラーが発生しました。'] }
+        })
 
       if (res.errors) {
         this.errors = res.errors
