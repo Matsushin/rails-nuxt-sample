@@ -1,49 +1,61 @@
 <template>
   <div class="task-table">
     <Errors :errors="errors" />
-    <v-data-table
-      :headers="headers"
-      :items="tasks"
-      item-key="id"
-      loading-text="読込中"
-      no-data-text="データがありません。">
-      <template v-slot:item.body="{ item }">
-        {{ item.body | truncate(20, '...') }}
-      </template>
-      <template v-slot:item.created_at="{ item }">
-        {{ ymdhms(item.created_at) }}
-      </template>
-      <template v-slot:item.actions="{ item }">
-        <v-btn
-          :to="`/tasks/${item.id}`"
-          class="ma-2"
-          color="success"
-          nuxt
-          dark>
-          詳細
-        </v-btn>
-        <v-btn
-          @click="edit(item.id)"
-          class="ma-2"
-          color="primary"
-          dark>
-          編集
-          <v-icon dark right>
-            mdi-pencil
-          </v-icon>
-        </v-btn>
-        <v-btn
-          @click="handleDeleteTask(item.id)"
-          class="ma-2"
-          color="red"
-          dark>
-          削除
-          <v-icon dark right>
-            mdi-delete
-          </v-icon>
-        </v-btn>
-      </template>
-    </v-data-table>
+    <div v-if="loading">
+      <v-row
+        class="mt-10"
+        align="center"
+        justify="center">
+        <v-progress-circular
+          indeterminate
+          color="primary" />
+      </v-row>
+    </div>
+    <div v-else>
+      <v-data-table
+        :headers="headers"
+        :items="tasks"
+        item-key="id"
+        loading-text="読込中"
+        no-data-text="データがありません。">
+        <template v-slot:item.body="{ item }">
+          {{ item.body | truncate(20, '...') }}
+        </template>
+        <template v-slot:item.created_at="{ item }">
+          {{ ymdhms(item.created_at) }}
+        </template>
+        <template v-slot:item.actions="{ item }">
+          <v-btn
+            :to="`/tasks/${item.id}`"
+            class="ma-2"
+            color="success"
+            nuxt
+            dark>
+            詳細
+          </v-btn>
+          <v-btn
+            @click="edit(item.id)"
+            class="ma-2"
+            color="primary"
+            dark>
+            編集
+            <v-icon dark right>
+              mdi-pencil
+            </v-icon>
+          </v-btn>
+          <v-btn
+            @click="handleDeleteTask(item.id)"
+            class="ma-2"
+            color="red"
+            dark>
+            削除
+            <v-icon dark right>
+              mdi-delete
+            </v-icon>
+          </v-btn>
+        </template>
+      </v-data-table>
+    </div>
   </div>
 </template>
 
@@ -64,6 +76,7 @@ export default {
   data() {
     return {
       errors: [],
+      loading: true,
       headers: [
         {
           text: 'タイトル',
@@ -100,6 +113,7 @@ export default {
     },
     async fetchTasks() {
       await this.$store.dispatch('tasks/fetchTasks')
+      this.loading = false
     },
     async deleteTask(id) {
       const res = await this.$store
