@@ -28,8 +28,8 @@ export default {
       task: 'tasks/task'
     })
   },
-  async fetch({ store, params }) {
-    await store.dispatch('tasks/fetchTask', params.id)
+  created() {
+    this.$store.dispatch('tasks/fetchTask', this.$route.params.id)
   }
 }
 </script>

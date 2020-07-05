@@ -35,11 +35,9 @@ export default {
       task: 'tasks/task'
     })
   },
-  async fetch({ store, params }) {
-    await store.dispatch('tasks/fetchTask', params.id)
-  },
-  created() {
-    this.formData = { ...this.task }
+  async created() {
+    await this.$store.dispatch('tasks/fetchTask', this.$route.params.id)
+    this.formData = this.task
   },
   methods: {
     async handleSubmit() {
