@@ -7,8 +7,11 @@
       item-key="id"
       loading-text="読込中"
       no-data-text="データがありません。">
+      <template v-slot:item.body="{ item }">
+        {{ item.body | truncate(20, '...') }}
+      </template>
       <template v-slot:item.created_at="{ item }">
-        {{ formattedDate(item.created_at) }}
+        {{ ymdhms(item.created_at) }}
       </template>
       <template v-slot:item.actions="{ item }">
         <v-btn
@@ -52,6 +55,12 @@ export default {
   components: {
     Errors
   },
+  filters: {
+    truncate(value, length, omission) {
+      if (value.length <= length) return value
+      return value.substring(0, length) + omission
+    }
+  },
   data() {
     return {
       errors: [],
@@ -76,18 +85,6 @@ export default {
     this.fetchTasks()
   },
   methods: {
-    tableRowClassName({ row, _rowIndex }) {
-      if (row.completed_at) {
-        return 'success-row'
-      }
-      return ''
-    },
-    formattedDate(str) {
-      if (!str) {
-        return
-      }
-      return this.$moment(str).format('YYYY年MM月DD日HH:mm:ss')
-    },
     edit(id) {
       this.$router.push({
         name: 'tasks-id-edit',

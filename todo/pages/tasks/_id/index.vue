@@ -8,12 +8,12 @@
     </a>
     <v-card class="mx-auto mt-2">
       <v-card-text>
-        <div>作成日時：{{ formattedDate(task.created_at) }}</div>
-        <div>更新日時：{{ formattedDate(task.updated_at) }}</div>
+        <div>作成日時：{{ ymdhms(task.created_at) }}</div>
+        <div>更新日時：{{ ymdhms(task.updated_at) }}</div>
         <p class="display-1 text--primary mt-1">
           {{ task.title }}
         </p>
-        <div v-html="task.body.replace(/\n/g, '<br/>')" class="text--primary" />
+        <div v-html="nl2br(task.body)" class="text--primary" />
       </v-card-text>
     </v-card>
   </div>
@@ -30,14 +30,6 @@ export default {
   },
   async fetch({ store, params }) {
     await store.dispatch('tasks/fetchTask', params.id)
-  },
-  methods: {
-    formattedDate(str) {
-      if (!str) {
-        return
-      }
-      return this.$moment(str).format('YYYY年MM月DD日HH:mm:ss')
-    }
   }
 }
 </script>
