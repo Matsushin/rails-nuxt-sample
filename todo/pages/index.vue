@@ -1,14 +1,14 @@
 <template>
-  <section class="container">
+  <section class="logo-container">
     <div>
       <logo />
-      <h1 class="title">
+      <h1 class="logo-title">
         todo
       </h1>
-      <h2 class="subtitle">
+      <h2 class="logo-subtitle">
         My wicked Nuxt.js project
       </h2>
-      <div class="links">
+      <div class="logo-links">
         <a
           href="https://nuxtjs.org/"
           target="_blank"
@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style>
-.container {
+.logo-container {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
@@ -42,7 +42,7 @@ export default {
   text-align: center;
 }
 
-.title {
+.logo-title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
@@ -52,7 +52,7 @@ export default {
   letter-spacing: 1px;
 }
 
-.subtitle {
+.logo-subtitle {
   font-weight: 300;
   font-size: 42px;
   color: #526488;
@@ -60,7 +60,7 @@ export default {
   padding-bottom: 15px;
 }
 
-.links {
+.logo-links {
   padding-top: 15px;
 }
 </style>
