@@ -20,20 +20,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  data() {
-    return {
-      task: {}
-    }
+  computed: {
+    ...mapGetters({
+      task: 'tasks/task'
+    })
   },
   created() {
-    this.fetchTask(this.$route.params.id)
-  },
-  methods: {
-    async fetchTask(taskId) {
-      const endpoint = `/api/v1/tasks/${taskId}`
-      this.task = await this.$axios.$get(endpoint)
-    }
+    this.$store.dispatch('tasks/fetchTask', this.$route.params.id)
   }
 }
 </script>
