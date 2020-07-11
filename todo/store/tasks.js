@@ -1,11 +1,16 @@
 export const state = () => ({
-  tasks: []
+  tasks: [],
+  task: {}
 })
 
 export const actions = {
   async fetchTasks({ commit }) {
     const res = await this.$axios.$get('/api/v1/tasks')
     commit('setTasks', res)
+  },
+  async fetchTask({ commit }, id) {
+    const res = await this.$axios.$get('/api/v1/tasks/' + id)
+    commit('setTask', res)
   },
   async createTask({ commit }, params) {
     const url = '/api/v1/tasks'
@@ -36,11 +41,17 @@ export const actions = {
 export const getters = {
   tasks(state) {
     return state.tasks
+  },
+  task(state) {
+    return state.task
   }
 }
 
 export const mutations = {
   setTasks(state, payload) {
     state.tasks = payload
+  },
+  setTask(state, payload) {
+    state.task = payload
   }
 }
