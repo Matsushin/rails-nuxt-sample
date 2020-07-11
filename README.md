@@ -69,7 +69,7 @@ Ctrl+C
 - 実装例は[こちら](https://github.com/Matsushin/rails-nuxt-sample/pull/15)
 
 #### 画面
-
+<img width="1484" alt="todo" src="https://user-images.githubusercontent.com/592230/87219293-cff90100-c394-11ea-8775-c392403299ed.png">
 
 ### 課題2
 ### APIを利用してタスク情報を取得する
@@ -104,7 +104,7 @@ Ctrl+C
 - 実装例は[こちら](https://github.com/Matsushin/rails-nuxt-sample/pull/18)
 
 #### 画面
-
+<img width="1478" alt="todo" src="https://user-images.githubusercontent.com/592230/87219278-beaff480-c394-11ea-8717-2110766f4afd.png">
 
 ### 課題5
 #### タスク登録と更新のフォームを共通化
