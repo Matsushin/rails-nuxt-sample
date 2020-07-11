@@ -79,6 +79,7 @@ Ctrl+C
   - ヒント
     - API呼び出しのタイミング`created`メソッド実行時
     - API呼び出し時は`await`を使って同期的に結果を取得して変数にセットする
+    - [axios参考記事](https://ma-vericks.com/nuxt-axios/)
 - 実装例は[こちら](https://github.com/Matsushin/rails-nuxt-sample/pull/16)
 
 ### 課題3
@@ -88,6 +89,7 @@ Ctrl+C
   - [ストアファイル](https://github.com/Matsushin/rails-nuxt-sample/blob/fetch-task-data/todo/store/tasks.js)のコードを変更すること
   - ヒント
     - `mapGetter`
+    - [Vuexストア参考記事](https://ja.nuxtjs.org/guide/vuex-store/)
 
 - 実装例は[こちら](https://github.com/Matsushin/rails-nuxt-sample/pull/17)
 
@@ -115,5 +117,6 @@ Ctrl+C
   - クリックした際の動きは各ビューのメソッドを使うようにする
   - ヒント
     - `emit`
+    - [コンポーネント参考記事](https://riotz.works/articles/lulzneko/2019/06/15/use-of-vue-components-in-nuxtjs-and-cross-call-with-it/)
 
 - 実装例は[こちら](https://github.com/Matsushin/rails-nuxt-sample/pull/19)
