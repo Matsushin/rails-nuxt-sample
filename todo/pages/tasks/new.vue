@@ -7,23 +7,41 @@
       タスク一覧へ戻る
     </a>
     <Errors :errors="errors" />
-    <TaskForm
-      @onSubmit="handleSubmit"
-      v-model="formData"
-      btn-label="この内容で登録する" />
+    <v-form ref="form">
+      <div class="box-wrapper">
+        <div class="box">
+          <div class="panel panel-input-list">
+            <v-text-field
+              v-model="formData.title"
+              :counter="20"
+              label="タイトル"
+              placeholder="ここにタスクのタイトルが入ります"
+              required />
+            <v-textarea
+              v-model="formData.body"
+              label="本文"
+              placeholder="ここにタスク内容が入ります" />
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <v-btn @click="handleSubmit" color="primary">
+          この内容で登録する
+        </v-btn>
+      </div>
+    </v-form>
   </div>
 </template>
 
 <script>
 import Errors from '@/components/shared/Errors'
-import TaskForm from '~/components/tasks/TaskForm'
 
 export default {
   components: {
-    Errors,
-    TaskForm
+    Errors
   },
-  asyncData() {
+  data() {
     return {
       formData: {},
       errors: []
