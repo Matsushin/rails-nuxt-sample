@@ -23,7 +23,7 @@ export default {
     Errors,
     TaskForm
   },
-  asyncData() {
+  data() {
     return {
       formData: {},
       errors: []
@@ -38,11 +38,7 @@ export default {
       await this.createtask(params)
     },
     async createtask(params) {
-      const res = await this.$store
-        .dispatch('tasks/createTask', params)
-        .catch(() => {
-          return { errors: ['エラーが発生しました。'] }
-        })
+      const res = await this.$store.dispatch('tasks/createTask', params)
       if (res.errors) {
         this.errors = res.errors
       } else {

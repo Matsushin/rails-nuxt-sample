@@ -48,11 +48,7 @@ export default {
       await this.updateTask(this.task, params)
     },
     async updateTask(task, params) {
-      const res = await this.$store
-        .dispatch('tasks/updateTask', { taskId: task.id, params: params })
-        .catch(() => {
-          return { errors: ['エラーが発生しました。'] }
-        })
+      const res = await this.$store.dispatch('tasks/updateTask', { taskId: task.id, params: params })
 
       if (res.errors) {
         this.errors = res.errors
