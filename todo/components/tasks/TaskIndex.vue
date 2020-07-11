@@ -84,11 +84,7 @@ export default {
       await this.$store.dispatch('tasks/fetchTasks')
     },
     async deleteTask(id) {
-      const res = await this.$store
-        .dispatch('tasks/deleteTask', id)
-        .catch(() => {
-          return { errors: ['エラーが発生しました。'] }
-        })
+      const res = await this.$store.dispatch('tasks/deleteTask', id)
 
       if (res.errors) {
         this.errors = res.errors
