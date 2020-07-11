@@ -23,6 +23,16 @@
           詳細
         </v-btn>
         <v-btn
+          @click="edit(item.id)"
+          class="ma-2"
+          color="primary"
+          dark>
+          編集
+          <v-icon dark right>
+            mdi-pencil
+          </v-icon>
+        </v-btn>
+        <v-btn
           @click="handleDeleteTask(item.id)"
           class="ma-2"
           color="red"
@@ -75,6 +85,14 @@ export default {
     this.fetchTasks()
   },
   methods: {
+    edit(id) {
+      this.$router.push({
+        name: 'tasks-id-edit',
+        params: {
+          id: id
+        }
+      })
+    },
     handleDeleteTask(id) {
       if (confirm('タスクを削除しますか？')) {
         this.deleteTask(id)
