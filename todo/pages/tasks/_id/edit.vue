@@ -26,7 +26,10 @@ export default {
   },
   data() {
     return {
-      formData: {},
+      formData: {
+        title: '',
+        body: ''
+      },
       errors: []
     }
   },
