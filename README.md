@@ -115,7 +115,7 @@ Ctrl+C
   - 見た目と動きは元と全く変わらないようにする
   - 新しくコンポーネントを作成する
     - ファイル名は`todo/components/tasks/TaskForm.vue`とする
-  - クリックした際の動きは各ビューのメソッドを使うようにする
+  - フォーム内のボタンをクリックした際の動きは各ビューのメソッドを使うようにする
   - ヒント
     - `emit`
     - [コンポーネント参考記事](https://riotz.works/articles/lulzneko/2019/06/15/use-of-vue-components-in-nuxtjs-and-cross-call-with-it/)
