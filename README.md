@@ -77,7 +77,7 @@ Ctrl+C
   - APIの呼び出しは`axios`を利用する
   - [ビューファイル](https://github.com/Matsushin/rails-nuxt-sample/blob/add-show/todo/pages/tasks/_id/index.vue)のみにコードを書くこと
   - ヒント
-    - API呼び出しのタイミング`created`メソッド実行時
+    - API呼び出しのタイミングは`created`メソッド実行時
     - API呼び出し時は`await`を使って同期的に結果を取得して変数にセットする
     - [axios参考記事](https://ma-vericks.com/nuxt-axios/)
 - 実装例は[こちら](https://github.com/Matsushin/rails-nuxt-sample/pull/16)
@@ -89,6 +89,7 @@ Ctrl+C
   - [ストアファイル](https://github.com/Matsushin/rails-nuxt-sample/blob/fetch-task-data/todo/store/tasks.js)のコードを変更すること
   - ヒント
     - `mapGetter`
+    - `store.dispatch`
     - [Vuexストア参考記事](https://ja.nuxtjs.org/guide/vuex-store/)
 
 - 実装例は[こちら](https://github.com/Matsushin/rails-nuxt-sample/pull/17)
