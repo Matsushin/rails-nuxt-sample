@@ -26,7 +26,10 @@ export default {
   },
   data() {
     return {
-      formData: {},
+      formData: {
+        title: '',
+        body: ''
+      },
       errors: []
     }
   },
@@ -37,7 +40,7 @@ export default {
   },
   async created() {
     await this.$store.dispatch('tasks/fetchTask', this.$route.params.id)
-    this.formData = this.task
+    this.formData = { ...this.task }
   },
   methods: {
     async handleSubmit() {
@@ -49,7 +52,6 @@ export default {
     },
     async updateTask(task, params) {
       const res = await this.$store.dispatch('tasks/updateTask', { taskId: task.id, params: params })
-
       if (res.errors) {
         this.errors = res.errors
       } else {
