@@ -24,6 +24,18 @@ export const actions = {
     }
     return {}
   },
+  async updateTask({ commit }, { taskId, params }) {
+    const url = `/api/v1/tasks/${taskId}`
+    const res = await this.$axios.$patch(url, { task: params }).catch(() => {
+      return { errors: ['エラーが発生しました'] }
+    })
+    if (res.errors && res.errors.length !== 0) {
+      return {
+        errors: res.errors
+      }
+    }
+    return {}
+  },
   async deleteTask({ commit }, taskId) {
     const url = `/api/v1/tasks/${taskId}`
     const res = await this.$axios.$delete(url).catch(() => {
