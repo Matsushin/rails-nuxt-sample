@@ -23,12 +23,16 @@
 export default {
   data() {
     return {
-      task: {
-        title: 'タスクタイトル1',
-        body: 'タスク内容がここに入ります。',
-        created_at: '2020-07-01 10:00:00',
-        updated_at: '2020-07-01 10:00:00'
-      }
+      task: {}
+    }
+  },
+  created() {
+    this.fetchTask(this.$route.params.id)
+  },
+  methods: {
+    async fetchTask(taskId) {
+      const endpoint = `/api/v1/tasks/${taskId}`
+      this.task = await this.$axios.$get(endpoint)
     }
   }
 }
